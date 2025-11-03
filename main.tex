@@ -1,0 +1,147 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- Pacotes Essenciais ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel} % Para formatação em português do Brasil
+\usepackage{amsmath}       % Para equações matemáticas avançadas
+\usepackage{amssymb}       % Para símbolos matemáticos
+\usepackage{graphicx}      % Para incluir imagens
+\usepackage{hyperref}      % Para criar links internos e externos (ex: no sumário)
+\usepackage{geometry}      % Para ajustar as margens
+\usepackage{minted}        % Para código python
+
+% --- Configuração das Margens ---
+\geometry{
+ a4paper,
+ top=3cm,
+ bottom=2cm,
+ left=3cm,
+ right=2cm
+}
+
+% --- Informações do Título ---
+\title{Grupo 4 - Programação Linear}
+
+% --- Múltiplos Autores ---
+% Use \and para separar os autores. Para mais organização, pode-se usar uma tabela.
+\author{
+  Bruno Ferreira da Silva \
+  \small{UERJ} \
+  \small{\texttt{email1@exemplo.com}}
+  \and
+  Maiana Souza Oliveira \
+  \small{UERJ} \
+  \small{\texttt{email2@exemplo.com}}
+  \and
+  Marcelo Henrique Araújo Silva \
+  \small{UERJ} \
+  \small{\texttt{email3@exemplo.com}}
+  \and
+  Henrique Messias Pimenta \
+  \small{UERJ} \
+  \small{\texttt{email4@exemplo.com}}
+}
+
+\date{\today} % Ou defina uma data específica, ex: \date{Setembro de 2023}
+
+% --- Início do Documento ---
+\begin{document}
+
+\maketitle % Cria a página de título com as informações acima
+\cleardoublepage
+
+\begin{abstract}
+    \noindent
+    Este trabalho tem como objetivo demonstrar como os alunos desenvolveram ao longo do curso suas capacidades de resolver problemas de programação linear com base em dois problemas: Um exercício de aplicação dos métodos simplex e um problema de modelagem.
+    \vspace{\baselineskip} % Adiciona um espaço vertical
+    
+    \noindent
+    \textbf{Palavras-chave:} Programação Linear, Otimização, Método Simplex, [Outra Palavra-chave].
+\end{abstract}
+
+\newpage
+\tableofcontents % Gera o sumário automagicamente
+\newpage
+
+% --- Seções do Projeto ---
+
+\section{Introdução ao método simplex}
+[Resumo de problemas do programação linear]
+[Resumo do método simplex analítico]
+[Resumo do método simplex tabular]
+
+\subsection{Formulação de Problemas}
+[Explique como modelar um problema real como um problema de programação linear (PPL). Se possível, use um exemplo clássico, como o problema da dieta ou da alocação de recursos.]
+
+\subsubsection{Problema 1}
+Agora vamos usar tudo o que sabemos para resolver o seguinte problema:
+\begin{equation*}
+    \min Z = 2x_1 + x_2, \qquad\text{s, r} \left\{\begin{matrix}
+         x_1 +  x_2 \ge 3 \\
+        2x_1 + 3x_2 \ge 9 \\
+         x_1        \ge 1 \\
+         x_1,  x_2  \ge 0
+    \end{matrix}\right.
+\end{equation*}
+[Descreva os principais algoritmos para resolver PPLs, como o método gráfico (para duas variáveis) e, principalmente, o Método Simplex.]
+
+\subsubsection{Problema 2}
+A Companhia Coelho S.A. fabrica motores para brinquedos e pequenos aparelhos. O departamento de marketing está prevendo vendas de 6.100 unidades do motor Roncam no próximo semestre. Essa é uma nova demanda, e a companhia terá de testar sua capacidade produtiva. O motor Roncam é montado com três componentes: um corpo, uma base e uma blindagem. Alguns desses componentes podem ser comprados de outros fornecedores, se existirem limitações da Coelho S.A. em sua produção. Os custos de produção e de aquisição em R\$/unidade estão resumidos na tabela a seguir:
+
+\begin{table*}[htb]
+  \begin{tabular}{ccc}
+    Componentes & Custo de aquisição (R\$) & Custos de produção (R\$) \\
+    Corpo & 10,00 & 8,00 \\
+    Base & 20,00 & 20,00 \\
+    Blindagem & 20,00 & 10,00
+  \end{tabular}
+\end{table*}
+
+A fábrica da Companhia Coelho S.A. tem três departamentos. O requisito de tempo em horas que cada componente consome em cada departamento está resumido na tabela a seguir. As horas disponíveis para a companhia estão listadas na última linha.
+
+\begin{table*}[htb]
+  \begin{tabular}{cccc}
+    Componentes & Preparação & Molde & Fabricação\\
+    Corpo & 1/30 & 1/15 & 1/30 \\
+    Base & 1/12 & 1/30 & 1/15 \\
+    Blindagem & 1/15 & 1/15 & 1/12 \\
+    Disponibilidade & 820 & 820 & 820 \\
+  \end{tabular}
+\end{table*}
+
+\section{Metodologia}
+[Descreva os passos que você seguiu para desenvolver o projeto. Isso pode incluir a ferramenta ou linguagem de programação utilizada (ex: Python com a biblioteca SciPy, MATLAB, LINGO), a fonte dos dados (se aplicável) e o design do experimento ou da aplicação.]
+
+\section{Desenvolvimento e Resultados}
+[Apresente o problema específico que você resolveu. Mostre a formulação matemática, o código ou a implementação utilizada e os resultados obtidos. Use tabelas, gráficos e figuras para ilustrar suas descobertas.]
+
+% Exemplo de como incluir uma figura
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{caminho/para/sua/imagem.png}
+%     \caption{Descrição da sua figura.}
+%     \label{fig:exemplo}
+% \end{figure}
+
+\section{Conclusão}
+% --- Seção de Agradecimentos (não numerada) ---
+\section*{Agradecimentos}
+\addcontentsline{toc}{section}{Agradecimentos} % Adiciona ao sumário
+[Este é o espaço para agradecer aos seus orientadores, colegas, instituições de fomento (como CAPES, CNPq), amigos e familiares que contribuíram de alguma forma para a realização do projeto.]
+
+% --- Referências Bibliográficas ---
+\begin{thebibliography}{99}
+\addcontentsline{toc}{section}{Referências} % Adiciona ao sumário
+
+\bibitem{exemplo_livro}
+SOBRENOME, N. \textit{Título do Livro}. Edição. Cidade: Editora, Ano.
+
+\bibitem{exemplo_artigo}
+SOBRENOME, N.; SOBRENOME, N. Título do Artigo. \textit{Nome do Periódico}, v. X, n. Y, p. 1-10, Ano.
+
+% Adicione suas referências aqui...
+
+\end{thebibliography}
+
+\end{document}
