@@ -14,6 +14,7 @@
 \usepackage{import}
 \usepackage{lmodern}
 \usepackage{booktabs}
+\usepackage{caption}
 
 
 %% Matplotlib used the following preamble
@@ -91,8 +92,6 @@
 % --- Seções do Projeto ---
 
 \section{Introdução ao método simplex}
-[Resumo de problemas do programação linear]
-[Resumo do método simplex analítico]
 \subsection{Introdução ao método simplex tabular}
 
 \subsection[Método de duas fases]{Problemas da forma não padrão: Método de duas fases}
@@ -129,9 +128,104 @@ Agora vamos usar tudo o que sabemos para resolver o seguinte problema:
          x_1,  x_2  \ge 0
     \end{matrix}\right.
 \end{equation*}
-\subsection[Método simplex analítico]{Solução pelo método simplex analítico}
-\subsection[Método simplex tabular]{Solução pelo método simplex tabular}
+\cleardoublepage
 
+\subsection[Método simplex analítico]{Solução pelo método simplex analítico}
+Vamos adicionar variáveis de folga e artificiais, pois o problema está na forma não padrão. Assim, escrevemos:
+\begin{align*}
+x_1 + x_2 - D_1 + A_1 &= 3 \\
+2x_1 + 3x_2 - D_2 + A_2 &= 9 \\
+x_1 - D_3 + A_3 &= 1 
+\end{align*}
+
+Definimos a função da Fase I:\@
+
+\begin{equation*}
+  W = A_1 + A_2 + A_3
+\end{equation*}
+
+
+Substituindo as expressões das artificiais:
+
+\begin{align*}
+  A_1 &= 3 - x_1 - x_2 + D_1 \\
+  A_2 &= 9 - 2x_1 - 3x_2 + D_2 \\
+  A_3 &= 1 - x_1 + D_3
+\end{align*}
+
+Logo:
+
+\begin{equation*}
+  W = 13 - 4x_1 - 4x_2 + D_1 + D_2 + D_3
+\end{equation*}
+
+Como queremos uma solução viável inicial, impomos $A_1 = A_2 = A_3 = 0$:
+
+\textbf{Primeira equação}:
+\begin{equation*}
+  0 = 3 - x_1 - x_2 + D_1 \quad \Rightarrow \quad x_1 + x_2 - D_1 = 3 \tag{I}
+\end{equation*}
+
+\textbf{Segunda equação}:
+\begin{equation*}
+  0 = 9 - 2x_1 - 3x_2 + D_2 \quad \Rightarrow \quad 2x_1 + 3x_2 - D_2 = 9 \tag{II}
+\end{equation*}
+
+\textbf{Terceira equação}:
+\begin{equation*}
+  0 = 1 - x_1 + D_3 \quad \Rightarrow \quad x_1 - D_3 = 1 \tag{III}
+\end{equation*}
+
+Da equação (III):
+
+\begin{equation*}
+  x_1 = 1, \quad D_3 = 0
+\end{equation*}
+
+Substituindo em (II):
+
+\begin{align*}
+  2(1) + 3x_2 - D_2 &= 9\\
+  3x_2 - D_2 &= 7 \Rightarrow \\
+  x_2 = \frac{7}{3}&,  D_2 = 0
+\end{align*}
+
+Substituindo em (I):
+
+\begin{align*}
+1 + \frac{7}{3} - D_1 &= 3 \\
+D_1 = \frac{4}{3} &\ge 0
+\end{align*}
+
+Portanto, a solução básica viável é:
+
+\[
+(x_1, x_2, D_1, D_2, D_3) = \left(1,\; \frac{7}{3},\; \frac{4}{3},\; 0,\; 0\right)
+\]
+
+A função da Fase I torna-se:
+
+\[
+\max(-W) = -2x_1 - x_2
+\]
+
+Logo:
+
+\[
+\max(-z) = -\frac{13}{3}
+\Rightarrow
+\min(z) = \frac{13}{3}
+\]
+
+onde:
+
+\[
+z(1,\, 7/3) = \frac{13}{3}
+\]
+\cleardoublepage
+
+\subsection[Método simplex tabular]{Solução pelo método simplex tabular}
+\cleardoublepage
 \subsection[Método gráfico]{Solução gráfica}
 Pelo método gráfico devemos buscar a interseção das áreas dos gráficos das inequações, e para isso vamos nomear as inequações para organizar os gráficos.
 \begin{align*}
@@ -147,7 +241,7 @@ Após a plotagem dos gráficos das inequações, saberemos que o ponto que perte
   \caption{Gráfico das inequações.}
   \label{fig:exemplo}
 \end{figure}
-
+\cleardoublepage
 \subsection[Solver]{Solução pelo solver do Excel}
 Procedimento para resolver
 \begin{enumerate}
@@ -281,7 +375,115 @@ Com isso podemos montar a primeira tabela:
   \end{tabular}
 \end{table*}
 
-\newpage
+\section*{Resolução pelo solver do Excel:}
+
+\subsection*{1) Definição do objetivo do problema}
+O objetivo do problema é minimizar o valor da função. Ou seja, desejamos encontrar valores para $x_1$, $x_2$, $x_3$ e $x_4$ que resultem no menor valor possível de $Z$, respeitando todas as restrições impostas.
+
+\textbf{Função Objetivo (Minimizar):}
+$$Z = 10x_1 + 12x_2 + 8x_3 + 10x_4$$
+
+\textbf{Restrições do Modelo:}
+\begin{align*}
+\text{R1: } & x_1 + x_2 \geq 400 \\
+\text{R2: } & x_3 + x_4 \geq 200 \\
+\text{R3: } & -x_1 - x_2 + x_3 + x_4 \geq 0 \quad (\text{equivalente a } x_3 + x_4 \geq x_1 + x_2) \\
+\text{R4: } & x_1 + x_2 + x_3 + x_4 \geq 1000 \\
+& x_1, x_2, x_3, x_4 \geq 0 \quad \text{(Não-negatividade)}
+\end{align*}
+
+\subsection*{2) Identificação das variáveis de decisão:}
+As variáveis de decisão são $x_1$, $x_2$, $x_3$ e $x_4$. Seus valores foram determinados automaticamente pelo Solver:
+
+\textbf{Variáveis do sistema}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$\mathbf{x_1}$ & $\mathbf{x_2}$ & $\mathbf{x_3}$ & $\mathbf{x_4}$ \\
+\hline
+400 & 0 & 600 & 0 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{3) Construção da estrutura das restrições:}
+Abaixo estão os valores calculados (Fórmula) para o lado esquerdo das restrições (LHS), e os limites definidos (Valor) para o lado direito (RHS), com os valores ótimos das variáveis:
+
+\textbf{Restrições}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Restrição} & \textbf{Fórmula do Modelo} & \textbf{Fórmula (LHS Calculado)} & \textbf{Valor (RHS)} \\
+\hline
+R1 & $x_1 + x_2 \geq 400$ & 400 & 400 \\
+\hline
+R2 & $x_3 + x_4 \geq 200$ & 600 & 200 \\
+\hline
+R3 & $-x_1 - x_2 + x_3 + x_4 \geq 0$ & 200 & 0 \\
+\hline
+R4 & $x_1 + x_2 + x_3 + x_4 \geq 1000$ & 1000 & 1000 \\
+\hline
+\end{tabular}
+\end{center}
+Todas as restrições são atendidas com os valores de $x_1=400, x_2=0, x_3=600, x_4=0$.
+
+\subsection*{4) Definição da função objetivo no Excel:}
+A célula objetivo $Z$ foi definida com a fórmula $Z = 10x_1 + 12x_2 + 8x_3 + 10x_4$.
+
+\textbf{Função Objetivo}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$\mathbf{Z}$ & $\mathbf{8800}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{5) Configuração do Solver e Solução:}
+No Solver, foi configurado:
+
+\begin{center}
+\captionof{table}{Configuração do Solver}
+\begin{tabular}{ll}
+\toprule
+\textbf{Item no Solver} & \textbf{Configuração} \\
+\midrule
+Definir objetivo & Célula onde está a função $Z = 10x_1 + 12x_2 + 8x_3 + 10x_4$ \\
+Para & Minimizar \\
+Variáveis ajustáveis & Células onde estão $x_1, x_2, x_3$ e $x_4$ \\
+Restrições & Incluídas: R1, R2, R3, R4 e não negatividade \\
+Método & Simplex LP (adequado para Programação Linear) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Resultado do Solver e Contribuição para Z:}
+\begin{center}
+\begin{tabular}{c|c|c|c}
+\hline
+\textbf{Variável} & \textbf{Valor} & \textbf{Peso na Função} & \textbf{Contribuição para Z} \\
+\hline
+$x_1$ & 400 & 10 & $10 \times 400 = 4000$ \\
+$x_2$ & 0 & 12 & $12 \times 0 = 0$ \\
+$x_3$ & 600 & 8 & $8 \times 600 = 4800$ \\
+$x_4$ & 0 & 10 & $10 \times 0 = 0$ \\
+\hline
+\multicolumn{3}{c|}{} & $\mathbf{Z = 8800}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Substituindo na função:}
+\begin{align*}
+Z &= 10(400) + 12(0) + 8(600) + 10(0) \\
+Z &= 4000 + 0 + 4800 + 0 \\
+Z &= 8800
+\end{align*}
+
+Ou seja, o menor valor possível da função objetivo é: $\mathbf{Z_{mínimo} = 8800}$. Todas as restrições são satisfeitas.
+
+
+\cleardoublepage
 \section[Problema Extra]{Problema de modelagem na forma (não ou sim)-padrão}
 A Companhia Coelho S.A. fabrica motores para brinquedos e pequenos aparelhos. O departamento de marketing está prevendo vendas de 6.100 unidades do motor Roncam no próximo semestre. Essa é uma nova demanda, e a companhia terá de testar sua capacidade produtiva. O motor Roncam é montado com três componentes: um corpo, uma base e uma blindagem. Alguns desses componentes podem ser comprados de outros fornecedores, se existirem limitações da Coelho S.A. em sua produção. Os custos de produção e de aquisição em R\$/unidade estão resumidos na tabela a seguir:
 
