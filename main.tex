@@ -54,19 +54,15 @@
 \author{
   Bruno Ferreira da Silva \
   \small{UERJ} \
-  \small{\texttt{email1@exemplo.com}}
-  \and
-  Maiana Souza Oliveira \
-  \small{UERJ} \
-  \small{\texttt{email2@exemplo.com}}
+  \small{\texttt{brunoferreira2431@gmail.com}}
   \and
   Marcelo Henrique Araújo Silva \
   \small{UERJ} \
-  \small{\texttt{email3@exemplo.com}}
+  \small{\texttt{Marchs.araujo@hotmail.com}}
   \and
   Henrique Messias Pimenta \
   \small{UERJ} \
-  \small{\texttt{email4@exemplo.com}}
+  \small{\texttt{henrique.pim2@gmail.com}}
 }
 
 \date{\today} % Ou defina uma data específica, ex: \date{Setembro de 2023}
@@ -122,13 +118,16 @@ Agora podemos converte a equação para a forma tabular
 \section[Problema 1]{Problema na forma não padrão}
 Agora vamos usar tudo o que sabemos para resolver o seguinte problema:
 \begin{equation*}
-    \min Z = 2x_1 + x_2, \qquad\text{s, r} \left\{\begin{matrix}
-         x_1 +  x_2 \ge 3 \\
-        2x_1 + 3x_2 \ge 9 \\
-         x_1        \ge 1 \\
-         x_1,  x_2  \ge 0
-    \end{matrix}\right.
+    \min Z = 2x_1 + x_2
 \end{equation*}
+sujeito as restrições:
+\begin{align*}
+  x_1  +  x_2 &\ge 3 \\
+  2x_1 + 3x_2 &\ge 9 \\
+  x_1        &\ge 1 \\
+  x_1,  x_2  &\ge 0
+\end{align*}
+
 \cleardoublepage
 
 \subsection[Método simplex analítico]{Solução pelo método simplex analítico}
@@ -363,7 +362,7 @@ Baseando-se em experiências anteriores, os custos são:
   \end{tabular}
 \end{table*}
 
-\subsection*{Modelagem:}
+\subsection[Modelagem]{Modelagem:}
 
 Queremos minimizar os custos totais e para isso vamos considerar a função:
 
@@ -391,7 +390,7 @@ Seguindo as seguintes restrições:
 
 Observe a restrição $R_i$ diz respeito a condição $i$, com $i = 1, \ldots, 4$
 
-\subsection*{Resolução pelo método simplex tabular:}
+\subsection[Método simplex tabular]{Resolução pelo método simplex tabular:}
 
 Comecemos pelo dicionário modificado:
 
@@ -577,7 +576,7 @@ $s_3$ & 0 & 0 & 0 & 0 & 2 & 0 & 1 & -1 & 200 \\
 Pelo fato dos coeficientes das variáveis serem todos positivos podemos parar as iterações, chegando ao seguinte resultado, $x_1 = 400, x_2 = 0, x_3 = 600, x_4 = 0$ e $Z = 8800$.
 
 \cleardoublepage
-\section*{Resolução pelo solver do Excel:}
+\subsection[Solver]{Resolução pelo solver do Excel:}
 
 \subsection*{1) Definição do objetivo do problema}
 O objetivo do problema é minimizar o valor da função. Ou seja, desejamos encontrar valores para $x_1$, $x_2$, $x_3$ e $x_4$ que resultem no menor valor possível de $Z$, respeitando todas as restrições impostas.
@@ -686,38 +685,166 @@ Ou seja, o menor valor possível da função objetivo é: $\mathbf{Z_{mínimo} =
 
 
 \cleardoublepage
-\section[Problema Extra]{Problema de modelagem na forma (não ou sim)-padrão}
+\section[Problema Extra]{Problema de modelagem na forma padrão}
 A Companhia Coelho S.A. fabrica motores para brinquedos e pequenos aparelhos. O departamento de marketing está prevendo vendas de 6.100 unidades do motor Roncam no próximo semestre. Essa é uma nova demanda, e a companhia terá de testar sua capacidade produtiva. O motor Roncam é montado com três componentes: um corpo, uma base e uma blindagem. Alguns desses componentes podem ser comprados de outros fornecedores, se existirem limitações da Coelho S.A. em sua produção. Os custos de produção e de aquisição em R\$/unidade estão resumidos na tabela a seguir:
 
 \begin{table*}[htb]
+  \centering
   \begin{tabular}{ccc}
+    \toprule
     Componentes & Custo de aquisição (R\$) & Custos de produção (R\$) \\
+    \midrule
     Corpo & 10,00 & 8,00 \\
     Base & 20,00 & 20,00 \\
-    Blindagem & 20,00 & 10,00
+    Blindagem & 20,00 & 10,00\\
+    \noalign{\smallskip}\bottomrule
   \end{tabular}
 \end{table*}
 
 A fábrica da Companhia Coelho S.A. tem três departamentos. O requisito de tempo em horas que cada componente consome em cada departamento está resumido na tabela a seguir. As horas disponíveis para a companhia estão listadas na última linha.
 
 \begin{table*}[htb]
+  \centering
   \begin{tabular}{cccc}
+    \toprule
     Componentes & Preparação & Molde & Fabricação\\
+    \midrule
     Corpo & 1/30 & 1/15 & 1/30 \\
     Base & 1/12 & 1/30 & 1/15 \\
     Blindagem & 1/15 & 1/15 & 1/12 \\
     Disponibilidade & 820 & 820 & 820 \\
+    \bottomrule
   \end{tabular}
 \end{table*}
 
-% Exemplo de como incluir uma figura
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{caminho/para/sua/imagem.png}
-%     \caption{Descrição da sua figura.}
-%     \label{fig:exemplo}
-% \end{figure}
+\subsection[Modelagem]{Modelagem:}
+Para modelar este problema, o objetivo é minimizar o custo total de obtenção dos componentes necessários para montar 6.100 motores Roncam. O custo total é a soma dos custos de produção interna e dos custos de aquisição de fornecedores externos.
 
+Primeiro, vamos definir nossas variáveis de decisão. Como a demanda para cada componente é fixa em 6.100 unidades, podemos simplificar o problema definindo as variáveis como a quantidade de cada componente a ser \textbf{produzido} internamente:
+
+\begin{itemize}
+    \item $x_1$: Quantidade de \textbf{Corpos} a serem produzidos.
+    \item $x_2$: Quantidade de \textbf{Bases} a serem produzidas.
+    \item $x_3$: Quantidade de \textbf{Blindagens} a serem produzidas.
+\end{itemize}
+
+A quantidade a ser comprada de cada componente será, portanto, a demanda total menos a quantidade produzida:
+\begin{itemize}
+    \item Quantidade de Corpos a comprar: $6100 - x_1$
+    \item Quantidade de Bases a comprar: $6100 - x_2$
+    \item Quantidade de Blindagens a comprar: $6100 - x_3$
+\end{itemize}
+
+A função objetivo $Z$ representa o custo total. Substituindo as variáveis e os custos da tabela, temos:
+
+\begin{align*}
+    Z = \underbrace{8x_1 + 20x_2 + 10x_3}_{\text{Custo de Produção}} + \underbrace{10(6100 - x_1) + 20(6100 - x_2) + 20(6100 - x_3)}_{\text{Custo de Aquisição}}
+\end{align*}
+
+Simplificando a expressão:
+\begin{align*}
+    Z &= 8x_1 + 20x_2 + 10x_3 + 61000 - 10x_1 + 122000 - 20x_2 + 122000 - 20x_3 \\
+    Z &= (8 - 10)x_1 + (20 - 20)x_2 + (10 - 20)x_3 + (61000 + 122000 + 122000) \\
+    Z &= -2x_1 - 10x_3 + 305000
+\end{align*}
+
+Como o objetivo é minimizar $Z$, isso é equivalente a maximizar $-Z$:
+\begin{equation*}
+    \max(-Z) = 2x_1 + 10x_3 - 305000
+\end{equation*}
+
+As restrições do problema são baseadas na capacidade de tempo (em horas) de cada departamento da fábrica.
+
+\begin{itemize}
+    \item \textbf{Restrição de Preparação (R1):} O tempo total gasto na preparação não pode exceder 820 horas.
+    \item \textbf{Restrição de Molde (R2):} O tempo total gasto na moldagem não pode exceder 820 horas.
+    \item \textbf{Restrição de Fabricação (R3):} O tempo total gasto na fabricação não pode exceder 820 horas.
+    \item \textbf{Restrições de Produção:} A quantidade produzida de cada componente não pode exceder a demanda total de 6.100 unidades.
+    \item \textbf{Não-negatividade:} As quantidades produzidas não podem ser negativas.
+\end{itemize}
+
+Isso nos leva ao seguinte sistema de inequações:
+\begin{align*}
+    \text{R1: } & \frac{1}{30}x_1 + \frac{1}{12}x_2 + \frac{1}{15}x_3 \le 820 \\
+    \text{R2: } & \frac{1}{15}x_1 + \frac{1}{30}x_2 + \frac{1}{15}x_3 \le 820 \\
+    \text{R3: } & \frac{1}{30}x_1 + \frac{1}{15}x_2 + \frac{1}{12}x_3 \le 820 \\
+    & 0 \le x_1 \le 6100 \\
+    & 0 \le x_2 \le 6100 \\
+    & 0 \le x_3 \le 6100
+\end{align*}
+Este é um problema de programação linear na forma padrão, pois todas as restrições são do tipo "menor ou igual que" ($\le$) e as variáveis são não-negativas.
+
+\subsection[Método simplex tabular]{Resolução pelo método simplex tabular:}
+
+Começamos pelo dicionário modificado:
+
+\begin{align*}
+  -Z -2x_1 - 10x_3 &= -305000 \\
+  \frac{1}{30}x_1 + \frac{1}{12}x_2 + \frac{1}{15}x_3 + s_1 &= 820 \\
+  \frac{1}{15}x_1 + \frac{1}{30}x_2 + \frac{1}{15}x_3 + s_2 &= 820 \\
+  \frac{1}{30}x_1 + \frac{1}{15}x_2 + \frac{1}{12}x_3 + s_2 &= 820 \\
+\end{align*}
+
+\textbf{tabela Inicial:}
+\begin{center}
+\begin{tabular}{llllllll}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $s_1$ & $s_2$ & $s_3$ & Constantes \\
+\midrule
+$-Z$ & -2 & 0 & -10 & 0 & 0 & 0 & -305000 \\
+$s_1$ & 1/30 & 1/12 & 1/15 & 1 & 0 & 0 & 820 \\
+$s_2$ & 1/15 & 1/30 & 1/15 & 0 & 1 & 0 & 820 \\
+$s_3$ & 1/30 & 1/15 & 1/12 & 0 & 0 & 1 & 820 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Primeira iteração:}
+\begin{center}
+\begin{tabular}{llllllll}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $s_1$ & $s_2$ & $s_3$ & Constantes \\
+\midrule
+$-Z$ & 0 & 1 & -8 & 0 & 30 & 0 & -280400 \\
+$s_1$ & 0 & 1/15 & 1/30 & 1 & -1/2 & 0 & 410 \\
+$x_1$ & 1 & 1/2 & 1 & 0 & 15 & 0 & 12300 \\
+$s_3$ & 0 & 1/20 & 1/20 & 0 & -1/2 & 1 & 410 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Segunda iteração:}
+\begin{center}
+\begin{tabular}{llllllll}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $s_1$ & $s_2$ & $s_3$ & Constantes \\
+\midrule
+$-Z$ & 0 & 9 & 0 & 0 & -50 & 160 & -214800 \\
+$s_1$ & 0 & 1/30 & 0 & 1 & -1/6 & -2/3 & 410/3 \\
+$x_1$ & 1 & -1/2 & 0 & 0 & 25 & -20 & 4100 \\
+$x_3$ & 0 & 1 & 1 & 0 & -10 & 20 & 8200 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Terceira iteração:}
+\begin{center}
+\begin{tabular}{llllllll}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $s_1$ & $s_2$ & $s_3$ & Constantes \\
+\midrule
+$-Z$ & 2 & 8 & 0 & 0 & 0 & 120 & -206600 \\
+$s_1$ & 1/150 & 3/100 & 0 & 1 & 0 & -4/5 & 164 \\
+$s_2$ & 1/25 & -1/50 & 0 & 0 & 1 & -4/5 & 164 \\
+$x_3$ & 2/5 & 4/5 & 1 & 0 & 0 & 12 & 9840 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Como todas as variáveis não básicas têm coeficientes positivos podemos parar as iterações, chegando ao seguinte resultado, $s_1 = 164, s_2 = 164, x_3 = 9840$ e $Z = 206600$.
+
+
+\cleardoublepage
 \section{Conclusão}
 % --- Seção de Agradecimentos (não numerada) ---
 \section*{Agradecimentos}
