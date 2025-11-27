@@ -13,6 +13,7 @@
 \usepackage{pgf}
 \usepackage{import}
 \usepackage{lmodern}
+\usepackage{float}         % Para posicionamento de figuras/tabelas
 \usepackage{booktabs}
 \usepackage{caption}
 \usepackage{nicefrac}
@@ -65,7 +66,7 @@
   \small{\texttt{henrique.pim2@gmail.com}}
 }
 
-\date{\today} % Ou defina uma data específica, ex: \date{Setembro de 2023}
+\date{\today}
 
 % --- Início do Documento ---
 \begin{document}
@@ -75,11 +76,11 @@
 
 \begin{abstract}
     \noindent
-    Este trabalho tem como objetivo demonstrar como os alunos desenvolveram ao longo do curso suas capacidades de resolver problemas de programação linear com base em dois problemas: Um exercício de aplicação dos métodos simplex e um problema de modelagem.
+    Este trabalho tem como objetivo demonstrar como os alunos desenvolveram ao longo do curso suas capacidades de resolver problemas de programação linear. O relatório aborda a aplicação dos métodos simplex (analítico e tabular), a resolução via solver computacional e a modelagem de problemas de produção, ilustrando a transição de problemas teóricos para aplicações práticas de tomada de decisão.
     \vspace{\baselineskip} % Adiciona um espaço vertical
     
     \noindent
-    \textbf{Palavras-chave:} Programação Linear, Otimização, Método Simplex, [Outra Palavra-chave].
+    \textbf{Palavras-chave:} Programação Linear, Otimização, Método Simplex, Solver, Modelagem.
 \end{abstract}
 
 \newpage
@@ -90,30 +91,33 @@
 
 \section{Introdução ao método simplex}
 \subsection{Introdução ao método simplex tabular}
+O método simplex tabular é uma forma organizada de executar o algoritmo simplex, facilitando a visualização das variáveis básicas, não básicas e dos cálculos de pivoteamento. A tabela é construída a partir do sistema de equações lineares do problema na forma padrão, onde as operações de linha (pivoteamento) são utilizadas para mover-se de um vértice a outro da região viável, buscando melhorar o valor da função objetivo a cada iteração até que a condição de otimalidade seja satisfeita.
 
 \subsection[Método de duas fases]{Problemas da forma não padrão: Método de duas fases}
-Para resolvermos um problema de programação linear na forma não padrão basta transforma-lo num problema na forma padrão. Um exemplo é o seguinte: minimização de função objetivo, ($\min Z$), um problema equivalente a encontrar seu mínimo é encontrar o máximo de $\max -Z$, porem não é tão obvio quando de trata de restrições do tipo maior ou igual ($\ge$), pois a solução trivial, nem sempre respeita as restrições, para aplicarmo o método, então dividimos em duas fases, a fase I de encontrar uma solução viável e a fase II de otimização.
+Para resolvermos um problema de programação linear na forma não padrão basta transformá-lo num problema na forma padrão. Um exemplo é o seguinte: a minimização de uma função objetivo ($\min Z$) é equivalente a encontrar o máximo de $\max (-Z)$. Porém, não é tão óbvio quando se trata de restrições do tipo maior ou igual ($\ge$), pois a solução trivial nem sempre respeita as restrições (viabilidade). Para aplicarmos o método, dividimos em duas fases: a Fase I, para encontrar uma solução viável inicial, e a Fase II, para a otimização propriamente dita.
 
 \subsubsection*{Fase I}
 Tome como exemplo a seguinte restrição:
-
 \begin{equation*}
-  x_2 + 2x_2 \ge 10
+  x_1 + 2x_2 \ge 10
 \end{equation*}
 
-Pelo método simplex introduzimos as variáveis de folga:
-
+Pelo método simplex introduzimos as variáveis de folga ($s_i$) para transformar a desigualdade em igualdade:
 \begin{equation*}
-  s_i = x_1 + 2x_2 - 10
+  x_1 + 2x_2 - s_i = 10
 \end{equation*}
 
-Mas nesse caso temos um problema que é, pela solução trivial $s_i < 0$ o que é um absurdo. Para contornarmos esse problema introduzimos as variáveis artificias.
-
+Se tentarmos a solução trivial ($x_1=0, x_2=0$), teremos $s_i = -10$, o que viola a condição de não-negatividade ($s_i \ge 0$). Para contornar esse problema, introduzimos as variáveis artificiais ($a_i$):
 \begin{equation*}
-  s_i = x_1 + 2x_2 + a_1 - 10
+  x_1 + 2x_2 - s_i + a_i = 10
 \end{equation*}
 
-Agora podemos converte a equação para a forma tabular
+Agora podemos converter a equação para a forma tabular e minimizar a soma das variáveis artificiais ($W = \sum a_i$). Se o mínimo de $W$ for 0, encontramos uma solução viável para o problema original e procedemos para a Fase II.
+
+\subsubsection*{Fase II (Otimização)}
+Após a Fase I, se o valor mínimo de $W$ for 0, significa que encontramos uma solução viável para o problema original. As variáveis artificiais que ainda estão na base devem ter valor zero. Se alguma variável artificial permanecer na base com um valor positivo, o problema original é inviável.
+
+Na Fase II, removemos todas as variáveis artificiais e a função objetivo da tabela. A função objetivo original do problema ($Z$) é então introduzida na tabela, e o método simplex é aplicado novamente para otimizar, começando da solução básica viável encontrada na Fase I. Se o problema original era de minimização, transformamos em $\max -Z$, caso estejamos buscando $\min Z$, para aplicar o simplex padrão.
 
 \section[Problema 1]{Problema na forma não padrão}
 Agora vamos usar tudo o que sabemos para resolver o seguinte problema:
@@ -139,7 +143,6 @@ x_1 - D_3 + A_3 &= 1
 \end{align*}
 
 Definimos a função da Fase I:\@
-
 \begin{equation*}
   W = A_1 + A_2 + A_3
 \end{equation*}
@@ -210,7 +213,6 @@ A função da Fase I torna-se:
 \]
 
 Logo:
-
 \[
 \max(-z) = -\frac{13}{3}
 \Rightarrow
