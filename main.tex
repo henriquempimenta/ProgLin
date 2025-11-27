@@ -15,6 +15,7 @@
 \usepackage{lmodern}
 \usepackage{booktabs}
 \usepackage{caption}
+\usepackage{nicefrac}
 
 
 %% Matplotlib used the following preamble
@@ -243,39 +244,101 @@ Após a plotagem dos gráficos das inequações, saberemos que o ponto que perte
 \end{figure}
 \cleardoublepage
 \subsection[Solver]{Solução pelo solver do Excel}
-Procedimento para resolver
-\begin{enumerate}
-  \item \textbf{Definir objetivo}: O objetivo do problema $\ldots$
-  Sujeito as seguintes restrições:
-  \begin{table*}[htb]
-    \centering
-    \begin{tabular}{lllr}
-      \toprule
-      Restrições & Fórmula & Tipo & Limite \\
-      \midrule
-      $R_1$ & $x_1 + x_3$ & $\ge$ & 3 \\
-      $R_2$ & $2x_1 + 3x_2$ & $\ge$ & 9 \\
-      $R_3$ & $x_1$ & $\ge$ & 1 \\
-      \bottomrule
-    \end{tabular}
-  \end{table*}
-  Onde $x_1, x_2 \ge 0$
-  \item Identificação das \textbf{variáveis de decisão}:
-  \begin{table*}[htb]
-    \centering
-    \begin{tabular}{lr}
-      \toprule
-      & Variáveis do Sistema \\
-      \midrule
-      $x_1$ & NaN \\
-      $x_2$ & NaN \\
-      \bottomrule
-    \end{tabular}
-  \end{table*}
-\end{enumerate}
+\subsection*{1) Definição do objetivo do problema}
+O objetivo do problema é minimizar o valor da função. Ou seja, desejamos encontrar valores para $x_1$ e $x_2$ que resultem no menor valor possível de $Z$, respeitando todas as restrições impostas.
 
+\textbf{Função Objetivo (Minimizar):}
+$$Z = 2x_1 + x_2$$
 
-\newpage
+\textbf{Restrições do Modelo:}
+\begin{align*}
+\text{R1: } & x_1 + x_2 \geq 3 \\
+\text{R2: } & 2x_1 + 3x_2 \geq 9 \\
+\text{R3: } & x_1 \geq 1 \\
+& x_1, x_2 \geq 0 \quad \text{(Não-negatividade)}
+\end{align*}
+
+\subsection*{2) Identificação das variáveis de decisão:}
+As variáveis de decisão são $x_1$ e $x_2$. Seus valores ótimos determinados pelo Solver são:
+
+\textbf{Variáveis do Sistema}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$\mathbf{x_1}$ & $\mathbf{x_2}$ \\
+\hline
+1 & $\nicefrac{7}{3} \approx 2.333333$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{3) Construção da estrutura das restrições:}
+Abaixo estão os valores calculados (Fórmula - LHS) para o lado esquerdo das restrições e os limites definidos (Valor - RHS):
+
+\textbf{Restrições}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Restrição} & \textbf{Fórmula do Modelo} & \textbf{Fórmula (LHS Calculado)} & \textbf{Valor (RHS)} \\
+\hline
+R1 & $x_1 + x_2 \geq 3$ & $\nicefrac{10}{3} \approx 3.333333$ & 3 \\
+\hline
+R2 & $2x_1 + 3x_2 \geq 9$ & 9 & 9 \\
+\hline
+R3 & $x_1 \geq 1$ & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+Todas as restrições são satisfeitas com os valores de $x_1=1$ e $x_2=\nicefrac{7}{3}$.
+
+\subsection*{4) Definição da função objetivo no Excel:}
+A célula objetivo $Z$ foi definida com a fórmula $Z = 2x_1 + x_2$.
+
+\textbf{Função Objetivo}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$\mathbf{Z}$ & $\nicefrac{13}{3} \approx 4.333333333$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{5) Configuração do Solver:}
+\begin{center}
+\captionof{table}{Configuração do Solver}
+\begin{tabular}{ll}
+\toprule
+\textbf{Item no Solver} & \textbf{Configuração} \\
+\midrule
+Definir objetivo & Célula onde está a função $Z$ \\
+Para & Minimizar \\
+Variáveis ajustáveis & Células onde estão $x_1$ e $x_2$ \\
+Restrições & Incluídas: R1, R2, R3 e não negatividade \\
+Método & Simplex LP (adequado para Programação Linear) \\
+\bottomrule
+\end{tabular}
+\end{center}
+Após configurar, o Solver foi executado.
+
+\subsection*{6) Resultado encontrado pelo Solver}
+\textbf{Variáveis Otimizadas:}
+\begin{center}
+\begin{tabular}{c|c}
+\hline
+\textbf{Variável} & \textbf{Valor ótimo} \\
+\hline
+$x_1$ & 1 \\
+$x_2$ & $\nicefrac{7}{3} (\approx 2.333)$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Substituindo na função objetivo:}
+$$Z = 2(1) + \frac{7}{3} = \frac{6}{3} + \frac{7}{3} = \frac{13}{3} \approx 4.33$$
+
+O menor valor possível da função objetivo é: $\mathbf{Z_{mínimo} \approx 4.33}$. E todas as restrições são satisfeitas.
+
+\cleardoublepage
 \section[Problema adicional]{problema de modelagem}
 A Opinião Popular S.A foi contratada para realizar uma pesquisa de porta em porta, respeitando as seguintes condições:
 
@@ -340,10 +403,10 @@ Comecemos pelo dicionário modificado:
   && x_1 &&+&& x_2 &&+&& x_3 &&+&& x_4 &&-&& s_4 &&+&& a_3 &&=&& 1000
 \end{align*}
 
-onde $s_i$ são as variáveis de folga e $a_j$ são as variáveis artificiais. E também definiremos a função $W = a_1 + a_2 + a_3$, com o objetivo de minimiza-la, o que equivale a maximizar $-W$. Somando todas as equações temos:
+onde $s_i$ são as variáveis de folga e $a_j$ são as variáveis artificiais. E também definiremos a função $W = a_1 + a_2 + a_3 + a_4$, com o objetivo de minimiza-la, o que equivale a maximizar $-W$. Somando todas as equações temos:
 
 \begin{align*}
-  x_1 + x_2 + 3x_3 + 3x_4 - s_1 - s_2 - s_3 - s_4 + a_1 + a_2 + a_3 &= 1600 \\
+  x_1 + x_2 + 3x_3 + 3x_4 - s_1 - s_2 - s_3 - s_4 + a_1 + a_2 + a_3 + a_4 &= 1600 \\
   x_1 + x_2 + 3x_3 + 3x_4 - s_1 - s_2 - s_3 - s_4 + W &= 1600 \\
   x_1 + x_2 + 3x_3 + 3x_4 - s_1 - s_2 - s_3 - s_4 - 1600 &= -W
 \end{align*}
@@ -354,8 +417,8 @@ Com isso podemos montar um novo dicionário:
   -W &&- x_1 &&-&& x_2 &&-&& 3x_3 &&-&& 3x_4 &&+&& s_1&&+&&s_2&&+&&s_3&&+&&s_4&& && &&=&& -1600 \\
   && x_1 &&+&& x_2 && && && && &&-&& s_1 && && && && && && &&+&& a_1 &&=&& 400 \\
   && && && && && x_3 &&+&& x_4 && && &&-&& s_2 && && && && &&+&& a_2 &&=&& 200 \\
-  &&-x_1 &&-&& x_2 &&+&& x_3 &&+&& x_4 && && && && &&-&& s_3 && && && && &&=&& 0 \\
-  && x_1 &&+&& x_2 &&+&& x_3 &&+&& x_4 && && && && && && &&-&& s_4 &&+&& a_3 &&=&& 1000
+  &&-x_1 &&-&& x_2 &&+&& x_3 &&+&& x_4 && && && && &&-&& s_3 && && &&+&& a_3 &&=&& 0 \\
+  && x_1 &&+&& x_2 &&+&& x_3 &&+&& x_4 && && && && && && &&-&& s_4 &&+&& a_4 &&=&& 1000
 \end{align*}
 
 Com isso podemos montar a primeira tabela:
@@ -366,15 +429,154 @@ Com isso podemos montar a primeira tabela:
     \toprule
     Básicas & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & Constantes \\
     \midrule
-    $-W$ & -1 & -1 & -3 & -3 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & -1600 \\
-    $a_1$ & 1 & 1 & 0 & 0 & -1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 400 \\
-    $a_2$ & 0 & 0 & 1 & 1 & 0 & -1 & 0 & 0 & 0 & 1 & 0 & 0 & 200 \\
-    $a_4$ & -1 & -1 & 1 & 1 & 0 & 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    $a_3$ & 1 & 1 & 1 & 1 & 0 & 0 & 0 & -1 & 0 & 0 & 1 & 0 & 1000 \\
+    $-W$  & -1 & -1 & -3 & -3 &  1 &  1 &  1 &  1 & 0 & 0 & 0 & 0 & -1600 \\
+    $a_1$ &  1 &  1 &  0 &  0 & -1 &  0 &  0 &  0 & 1 & 0 & 0 & 0 & 400 \\
+    $a_2$ &  0 &  0 &  1 &  1 &  0 & -1 &  0 &  0 & 0 & 1 & 0 & 0 & 200 \\
+    $a_3$ & -1 & -1 &  1 &  1 &  0 &  0 & -1 &  0 & 0 & 0 & 1 & 0 & 0 \\
+    $a_4$ &  1 &  1 &  1 &  1 &  0 &  0 &  0 & -1 & 0 & 0 & 0 & 1 & 1000 \\
     \bottomrule
   \end{tabular}
 \end{table*}
 
+\textbf{Primeira iteração}:
+\begin{center}
+\begin{tabular}{lrrrrrrrrrrrrr}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & Constantes \\
+\midrule
+$-W$ & 0 & 0 & -4 & -4 & 1 & 1 & 2 & 1 & 0 & 0 & -1 & 0 & -1600 \\
+$a_1$ & 0 & 0 & 1 & 1 & -1 & 0 & -1 & 0 & 1 & 0 & 1 & 0 & 400 \\
+$a_2$ & 0 & 0 & 1 & 1 & 0 & -1 & 0 & 0 & 0 & 1 & 0 & 0 & 200 \\
+$x_1$ & 1 & 1 & -1 & -1 & 0 & 0 & 1 & 0 & 0 & 0 & -1 & 0 & 0 \\
+$a_4$ & 0 & 0 & 2 & 2 & 0 & 0 & -1 & -1 & 0 & 0 & 1 & 1 & 1000 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Segunda iteração}:
+\begin{center}
+\begin{tabular}{lrrrrrrrrrrrrr}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & Constantes \\
+\midrule
+$-W$ & -4 & -4 & 0 & 0 & 1 & 1 & -2 & 1 & 0 & 0 & 3 & 0 & -1600 \\
+$a_1$ & 1 & 1 & 0 & 0 & -1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 400 \\
+$a_2$ & 1 & 1 & 0 & 0 & 0 & -1 & 1 & 0 & 0 & 1 & -1 & 0 & 200 \\
+$x_3$ & -1 & -1 & 1 & 1 & 0 & 0 & -1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+$a_4$ & 2 & 2 & 0 & 0 & 0 & 0 & 1 & -1 & 0 & 0 & -1 & 1 & 1000 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Terceira iteração}:
+\begin{center}
+\begin{tabular}{lrrrrrrrrrrrrr}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & Constantes \\
+\midrule
+$-W$ & 0 & 0 & 0 & 0 & 1 & -3 & 2 & 1 & 0 & 4 & -1 & 0 & -800 \\
+$a_1$ & 0 & 0 & 0 & 0 & -1 & 1 & -1 & 0 & 1 & -1 & 1 & 0 & 200 \\
+$x_1$ & 1 & 1 & 0 & 0 & 0 & -1 & 1 & 0 & 0 & 1 & -1 & 0 & 200 \\
+$x_3$ & 0 & 0 & 1 & 1 & 0 & -1 & 0 & 0 & 0 & 1 & 0 & 0 & 200 \\
+$a_4$ & 0 & 0 & 0 & 0 & 0 & 2 & -1 & -1 & 0 & -2 & 1 & 1 & 600 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Quarta iteração}:
+\begin{center}
+\begin{tabular}{lrrrrrrrrrrrrr}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & Constantes \\
+\midrule
+$-W$ & 0 & 0 & 0 & 0 & -2 & 0 & -1 & 1 & 3 & 1 & 2 & 0 & -200 \\
+$s_2$ & 0 & 0 & 0 & 0 & -1 & 1 & -1 & 0 & 1 & -1 & 1 & 0 & 200 \\
+$x_1$ & 1 & 1 & 0 & 0 & -1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 400 \\
+$x_3$ & 0 & 0 & 1 & 1 & -1 & 0 & -1 & 0 & 1 & 0 & 1 & 0 & 400 \\
+$a_4$ & 0 & 0 & 0 & 0 & 2 & 0 & 1 & -1 & -2 & 0 & -1 & 1 & 200 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Quinta iteração}:
+\begin{center}
+\begin{tabular}{lrrrrrrrrrrrrr}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & Constantes \\
+\midrule
+$-W$ & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0.0 & 1 & 1 & 1.0 & 1.0 & 0 \\
+$s_2$ & 0 & 0 & 0 & 0 & 0 & 1 & -0.5 & -0.5 & 0 & -1 & 0.5 & 0.5 & 300 \\
+$x_1$ & 1 & 1 & 0 & 0 & 0 & 0 & 0.5 & -0.5 & 0 & 0 & -0.5 & 0.5 & 500 \\
+$x_3$ & 0 & 0 & 1 & 1 & 0 & 0 & -0.5 & -0.5 & 0 & 0 & 0.5 & 0.5 & 500 \\
+$s_1$ & 0 & 0 & 0 & 0 & 1 & 0 & 0.5 & -0.5 & -1 & 0 & -0.5 & 0.5 & 100 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Assim temos seguinte solução viável: 
+$$
+(x_1, x_2, x_3, x_4, s_1, s_2, s_3, s_4, a_1, a_2, a_3, a_4) = (500, 0, 500, 0, 100, 300, 0, 0, 0, 0, 0, 0)
+$$
+
+A função objetivo original é $Z = 10x_1 + 12x_2 + 8x_3 + 10x_4$. E além disso também temos que $s_1, x_1, s_2, x_3$ são variáveis básicas, e suas equações são:
+
+\begin{align*}
+  s_2 - \frac{1}{2}s_3 - \frac{1}{2}s_4 &= 300 \\
+  x_1 + x_2 + \frac{1}{2}s_3 - \frac{1}{2}s_4 &= 500 \\
+  x_3 + x_4 - \frac{1}{2}s_3 - \frac{1}{2}s_4 &= 500 \\
+  s_1 + \frac{1}{2}s_3 - \frac{1}{2}s_4 &= 100
+\end{align*}
+
+assim temos que:
+
+\begin{align*}
+  x_1 &= 500 - x_2 - \frac{1}{2}s_3 + \frac{1}{2}s_4 \\
+  x_3 &= 500 - x_4 + \frac{1}{2}s_3 + \frac{1}{2}s_4
+\end{align*}
+
+substituindo em $Z$ temos:
+
+\begin{equation*}
+  Z = 10(500 - x_2 - \frac{1}{2}s_3 + \frac{1}{2}s_4) + 12x_2 + 8(500 - x_4 + \frac{1}{2}s_3 + \frac{1}{2}s_4) + 10x_4 = 9000 + 2x_2 + 2x_4 - s_3 + 9s_4
+\end{equation*}
+
+Terminada a Fase I, que busca uma solução viável inicial, vem a Fase II que é a de otimização, neste caso  de maximizar $-Z = -9000 - 2x_2 - 2x_4 + s_3 - 9s_4$
+
+Como temos que a primeira tabela da fase de otimização é:
+
+\begin{center}
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & Constantes \\
+\midrule
+$-Z$ & 0 & 2 & 0 & 2 & 0 & 0 & -1 & 9 & -9000 \\
+$s_2$ & 0 & 0 & 0 & 0 & 0 & 1 & -0.5 & -0.5 & 300 \\
+$x_1$ & 1 & 1 & 0 & 0 & 0 & 0 & 0.5 & -0.5 & 500 \\
+$x_3$ & 0 & 0 & 1 & 1 & 0 & 0 & -0.5 & -0.5 & 500 \\
+$s_1$ & 0 & 0 & 0 & 0 & 1 & 0 & 0.5 & -0.5 & 100 \\
+\bottomrule
+\end{tabular}  
+\end{center}
+
+\textbf{Primeira iteração:}
+
+\begin{center}
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+Básicas & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & Constantes \\
+\midrule
+$-Z$ & 0 & 2 & 0 & 2 & 2 & 0 & 0 & 8 & -8800 \\
+$s_2$ & 0 & 0 & 0 & 0 & 1 & 1 & 0 & -1 & 400 \\
+$x_1$ & 1 & 1 & 0 & 0 & -1 & 0 & 0 & 0 & 400 \\
+$x_3$ & 0 & 0 & 1 & 1 & 1 & 0 & 0 & -1 & 600 \\
+$s_3$ & 0 & 0 & 0 & 0 & 2 & 0 & 1 & -1 & 200 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Pelo fato dos coeficientes das variáveis serem todos positivos podemos parar as iterações, chegando ao seguinte resultado, $x_1 = 400, x_2 = 0, x_3 = 600, x_4 = 0$ e $Z = 8800$.
+
+\cleardoublepage
 \section*{Resolução pelo solver do Excel:}
 
 \subsection*{1) Definição do objetivo do problema}
